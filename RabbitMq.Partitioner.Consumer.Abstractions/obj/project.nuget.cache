@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "3kKdhqXepppqpSW401V7am95OXcJxo+5U8g3B25MgBle69Qd1amNcarZSYXXXOot/mUN9F3LwxANTQCYy0ubvA==",
+  "dgSpecHash": "lcoarP8Z428=",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\LionBitcoin\\RabbitMq.Partitioner\\RabbitMq.Partitioner.Consumer.Abstractions\\RabbitMq.Partitioner.Consumer.Abstractions.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\PC\\.nuget\\packages\\rabbitmq.client\\7.0.0\\rabbitmq.client.7.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\system.threading.ratelimiting\\8.0.0\\system.threading.ratelimiting.8.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.12\\microsoft.netcore.app.ref.8.0.12.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.12\\microsoft.windowsdesktop.app.ref.8.0.12.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.12\\microsoft.aspnetcore.app.ref.8.0.12.nupkg.sha512"
+  ],
   "logs": []
 }

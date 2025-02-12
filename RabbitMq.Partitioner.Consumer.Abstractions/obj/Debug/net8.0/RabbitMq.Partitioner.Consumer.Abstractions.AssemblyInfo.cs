@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RabbitMq.Partitioner.Consumer.Abstractions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee69025c9f1b7737427e9ce0cc8f31225783a109")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a1c7b8f6cc84fd76a035ded9c4733c83382d5321")]
 [assembly: System.Reflection.AssemblyProductAttribute("RabbitMq.Partitioner.Consumer.Abstractions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RabbitMq.Partitioner.Consumer.Abstractions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
