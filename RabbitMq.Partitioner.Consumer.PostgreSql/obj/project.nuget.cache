@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "L0oWcn4QTPgp7WljjchcewBhG0G0DMUhlZtCVNohJDDksu7RJsh9s0AsMrC63AbaQ8mjFvn9FQIDGeGImAvd+Q==",
+  "dgSpecHash": "CFyXadXkD29PzDq2B7zXMY3y0pkKuKG1Stdm1g8G/ivQe2hj1AX+WUzrQWsA16FGjViFCruVYe7uywe36xxX9A==",
   "success": true,
   "projectFilePath": "C:\\Users\\PC\\Desktop\\LionBitcoin\\RabbitMq.Partitioner\\RabbitMq.Partitioner.Consumer.PostgreSql\\RabbitMq.Partitioner.Consumer.PostgreSql.csproj",
   "expectedPackageFiles": [],

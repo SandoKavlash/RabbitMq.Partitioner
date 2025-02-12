@@ -7,9 +7,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\RabbitMq.Partitioner.Consumer.PostgreSql\RabbitMq.Partitioner.Consumer.PostgreSql.csproj" />
-      <ProjectReference Include="..\RabbitMq.Partitioner.Publisher\RabbitMq.Partitioner.Publisher.csproj" />
-    </ItemGroup>
-
 </Project>

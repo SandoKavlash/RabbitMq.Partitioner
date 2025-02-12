@@ -1,0 +1,13 @@
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\bin\Debug\net8.0\RabbitMq.Partitioner.Publisher.deps.json
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\bin\Debug\net8.0\RabbitMq.Partitioner.Publisher.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\bin\Debug\net8.0\RabbitMq.Partitioner.Publisher.pdb
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.AssemblyInfo.cs
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.sourcelink.json
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\refint\RabbitMq.Partitioner.Publisher.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\RabbitMq.Partitioner.Publisher.pdb
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Publisher\obj\Debug\net8.0\ref\RabbitMq.Partitioner.Publisher.dll

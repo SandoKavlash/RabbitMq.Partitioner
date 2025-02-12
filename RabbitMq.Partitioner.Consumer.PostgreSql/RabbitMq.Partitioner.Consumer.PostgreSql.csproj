@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\RabbitMq.Partitioner.Consumer.Abstractions\RabbitMq.Partitioner.Consumer.Abstractions.csproj" />
-    </ItemGroup>
-
 </Project>

@@ -1,0 +1,16 @@
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\bin\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.deps.json
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\bin\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\bin\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.pdb
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\bin\Debug\net8.0\RabbitMq.Partitioner.Consumer.Abstractions.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\bin\Debug\net8.0\RabbitMq.Partitioner.Consumer.Abstractions.pdb
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.csproj.AssemblyReference.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.AssemblyInfoInputs.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.AssemblyInfo.cs
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.csproj.CoreCompileInputs.cache
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.sourcelink.json
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.AEF5CD85.Up2Date
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\refint\RabbitMq.Partitioner.Consumer.PostgreSql.dll
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\RabbitMq.Partitioner.Consumer.PostgreSql.pdb
+C:\Users\PC\Desktop\LionBitcoin\RabbitMq.Partitioner\RabbitMq.Partitioner.Consumer.PostgreSql\obj\Debug\net8.0\ref\RabbitMq.Partitioner.Consumer.PostgreSql.dll
