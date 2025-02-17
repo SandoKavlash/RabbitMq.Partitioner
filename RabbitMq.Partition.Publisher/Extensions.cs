@@ -11,7 +11,7 @@ namespace RabbitMq.Partition.Publisher;
 
 public static class Extensions
 {
-    public static IServiceCollection AddRabbitPartition(this IServiceCollection services,
+    public static IServiceCollection AddRabbitPartitioner(this IServiceCollection services,
         Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator, PartitionPublisherSettings> configure)
     {
         PartitionPublisherSettings settings = new PartitionPublisherSettings();
