@@ -1,8 +1,11 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using MassTransit;
+using RabbitMq.Partition.Publisher.Abstractions;
+using RabbitMq.Partition.Publisher.Enums;
 using RabbitMq.Partition.Publisher.Implementations;
 using RabbitMq.Partition.Publisher.Jobs;
+using RabbitMq.Partition.Publisher.Models;
 
 namespace RabbitMq.Partition.Publisher;
 
@@ -12,11 +15,21 @@ public static class Extensions
         Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator, PartitionPublisherSettings> configure)
     {
         PartitionPublisherSettings settings = new PartitionPublisherSettings();
-        ConfigureMassTransit(services, configure, settings);
-        services.AddSingleton<PartitionPublisherSettings>(settings);
-        RegisterPartitionPublisher(services, settings);
 
+        ConfigureMassTransit(services, configure, settings);
+        RegisterPartitionPublisher(services, settings);
+        SaveTopicsMetadata(settings);
+        
+        services.AddSingleton<PartitionPublisherSettings>(settings);
         return services;
+    }
+
+    private static void SaveTopicsMetadata(PartitionPublisherSettings settings)
+    {
+        foreach (var topic in settings.Topics)
+        {
+            Constants.TopicsAndPartitionsMapping.Add(topic.TopicName,topic.PartitionsCount);
+        }
     }
 
     private static void ConfigureMassTransit(IServiceCollection services, Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator, PartitionPublisherSettings> configure,
@@ -26,10 +39,34 @@ public static class Extensions
         {
             massTransitConfig.UsingRabbitMq((context, rabbitConfig) =>
             {
-                configure(context, rabbitConfig, settings);
+                configure(context, rabbitConfig, settings); // after this method call, settings instance will be populated.
+
+                SetupTopics(settings, rabbitConfig);
                 rabbitConfig.ConfigureEndpoints(context);
             });
         });
+    }
+
+    private static void SetupTopics(PartitionPublisherSettings settings, IRabbitMqBusFactoryConfigurator rabbitConfig)
+    {
+        foreach (Topic topic in settings.Topics)
+        {
+            SetupTopic(rabbitConfig, topic);
+        }
+    }
+
+    private static void SetupTopic(IRabbitMqBusFactoryConfigurator rabbitConfig, Topic topic)
+    {
+        for (int i = 0; i < topic.PartitionsCount; i++)
+        {
+            rabbitConfig.ReceiveEndpoint($"{topic.TopicName}-{i}", endpointConfig =>
+            {
+                endpointConfig.Durable = true;
+                endpointConfig.Exclusive = false;
+                endpointConfig.AutoDelete = false;
+                endpointConfig.SingleActiveConsumer = true;
+            });
+        }
     }
 
     private static void RegisterPartitionPublisher(IServiceCollection services, PartitionPublisherSettings settings)

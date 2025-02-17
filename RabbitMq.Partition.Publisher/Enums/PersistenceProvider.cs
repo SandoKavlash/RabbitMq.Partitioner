@@ -1,4 +1,4 @@
-namespace RabbitMq.Partition.Publisher;
+namespace RabbitMq.Partition.Publisher.Enums;
 
 public enum PersistenceProvider
 {
