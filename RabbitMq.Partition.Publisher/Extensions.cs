@@ -40,8 +40,20 @@ public static class Extensions
         }
         else // If connection string is not null, it means that user wants to configure outbox pattern for publishing
         {
-            services.AddScoped<IPartitionPublisher, PartitionPublisherWithOutbox>();
+            services.AddScoped(typeof(IPartitionPublisher),settings.GetPartitionPublisherType());
             services.AddHostedService<OutboxPublisherJob>();
         }
+    }
+
+    private static Type GetPartitionPublisherType(this PartitionPublisherSettings settings)
+    {
+        return settings.PersistenceProvider switch
+        {
+            PersistenceProvider.None => throw new ArgumentException(
+                "ConnectionString is specified but provider not. you must specify DB provider"),
+            PersistenceProvider.PostgreSql => typeof(PartitionPublisherWithOutboxPostgres),
+            _ => throw new ArgumentException(
+                "Implementation, for specified provider, doesn't exist")
+        };
     }
 }
