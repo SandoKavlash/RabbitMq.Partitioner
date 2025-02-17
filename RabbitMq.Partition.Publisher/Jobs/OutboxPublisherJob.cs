@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 
-namespace RabbitMq.Partition.Publisher.Abstractions.Jobs;
+namespace RabbitMq.Partition.Publisher.Jobs;
 
 internal class OutboxPublisherJob : BackgroundService
 {

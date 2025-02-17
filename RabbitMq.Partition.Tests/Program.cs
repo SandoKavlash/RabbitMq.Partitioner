@@ -1,6 +1,6 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Hosting;
-using RabbitMq.Partition.Publisher.Abstractions;
+using RabbitMq.Partition.Publisher;
 
 Host
     .CreateDefaultBuilder()

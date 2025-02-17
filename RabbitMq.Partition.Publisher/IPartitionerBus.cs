@@ -1,6 +1,6 @@
 using MassTransit;
 
-namespace RabbitMq.Partition.Publisher.Abstractions;
+namespace RabbitMq.Partition.Publisher;
 
 internal interface IPartitionBus : IBus
 {

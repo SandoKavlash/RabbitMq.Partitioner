@@ -1,4 +1,4 @@
-namespace RabbitMq.Partition.Publisher.Abstractions;
+namespace RabbitMq.Partition.Publisher;
 
 public class PartitionPublisherSettings
 {

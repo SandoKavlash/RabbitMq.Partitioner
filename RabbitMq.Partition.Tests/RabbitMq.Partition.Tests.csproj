@@ -9,7 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RabbitMq.Partition.Consumer.PostgreSql\RabbitMq.Partition.Consumer.PostgreSql.csproj" />
-      <ProjectReference Include="..\RabbitMq.Partition.Publisher.PostgreSql\RabbitMq.Partition.Publisher.PostgreSql.csproj" />
+      <ProjectReference Include="..\RabbitMq.Partition.Publisher\RabbitMq.Partition.Publisher.csproj" />
     </ItemGroup>
 
     <ItemGroup>

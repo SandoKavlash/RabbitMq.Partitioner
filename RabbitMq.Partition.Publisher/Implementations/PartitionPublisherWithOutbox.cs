@@ -1,4 +1,4 @@
-namespace RabbitMq.Partition.Publisher.Abstractions.Implementations;
+namespace RabbitMq.Partition.Publisher.Implementations;
 
 internal class PartitionPublisherWithOutbox : IPartitionPublisher
 {

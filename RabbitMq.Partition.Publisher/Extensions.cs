@@ -1,10 +1,10 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using MassTransit;
-using RabbitMq.Partition.Publisher.Abstractions.Implementations;
-using RabbitMq.Partition.Publisher.Abstractions.Jobs;
+using RabbitMq.Partition.Publisher.Implementations;
+using RabbitMq.Partition.Publisher.Jobs;
 
-namespace RabbitMq.Partition.Publisher.Abstractions;
+namespace RabbitMq.Partition.Publisher;
 
 public static class Extensions
 {
