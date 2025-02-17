@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>disable</ImplicitUsings>
+        <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RabbitMq.Partitioner.Consumer.Abstractions\RabbitMq.Partitioner.Consumer.Abstractions.csproj" />
+      <ProjectReference Include="..\RabbitMq.Partition.Publisher.Abstractions\RabbitMq.Partition.Publisher.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>

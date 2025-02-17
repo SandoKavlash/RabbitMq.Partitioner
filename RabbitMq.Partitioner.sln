@@ -1,12 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner.Tests", "RabbitMq.Partitioner.Tests\RabbitMq.Partitioner.Tests.csproj", "{B0C4C468-6FF2-4E81-A83C-A895E0247442}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Tests", "RabbitMq.Partition.Tests\RabbitMq.Partition.Tests.csproj", "{B0C4C468-6FF2-4E81-A83C-A895E0247442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner.Publisher", "RabbitMq.Partitioner.Publisher\RabbitMq.Partitioner.Publisher.csproj", "{57C8D6F6-B8C9-43B8-914D-27EA17CC18A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Publisher.Abstractions", "RabbitMq.Partition.Publisher.Abstractions\RabbitMq.Partition.Publisher.Abstractions.csproj", "{57C8D6F6-B8C9-43B8-914D-27EA17CC18A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner.Consumer.Abstractions", "RabbitMq.Partitioner.Consumer.Abstractions\RabbitMq.Partitioner.Consumer.Abstractions.csproj", "{A95A6C72-8A42-49D1-9278-A238264748C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Consumer.Abstractions", "RabbitMq.Partition.Consumer.Abstractions\RabbitMq.Partition.Consumer.Abstractions.csproj", "{A95A6C72-8A42-49D1-9278-A238264748C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner.Consumer.PostgreSql", "RabbitMq.Partitioner.Consumer.PostgreSql\RabbitMq.Partitioner.Consumer.PostgreSql.csproj", "{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Consumer.PostgreSql", "RabbitMq.Partition.Consumer.PostgreSql\RabbitMq.Partition.Consumer.PostgreSql.csproj", "{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Publisher.PostgreSql", "RabbitMq.Partition.Publisher.PostgreSql\RabbitMq.Partition.Publisher.PostgreSql.csproj", "{D57243CA-4388-4471-A9B1-DDB5504D32F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +32,9 @@ Global
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D57243CA-4388-4471-A9B1-DDB5504D32F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D57243CA-4388-4471-A9B1-DDB5504D32F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D57243CA-4388-4471-A9B1-DDB5504D32F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D57243CA-4388-4471-A9B1-DDB5504D32F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

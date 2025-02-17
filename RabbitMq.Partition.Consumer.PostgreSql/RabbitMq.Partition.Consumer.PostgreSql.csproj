@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>disable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>RabbitMq.Partition.Consumer.PostgreSql</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RabbitMq.Partition.Consumer.Abstractions\RabbitMq.Partition.Consumer.Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>
