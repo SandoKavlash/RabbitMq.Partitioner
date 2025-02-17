@@ -1,18 +1,77 @@
+using System;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MassTransit;
+using MassTransit.DependencyInjection;
 using RabbitMq.Partition.Publisher.Abstractions;
 
 namespace RabbitMq.Partition.Publisher.Implementations;
 
 internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
 {
-    public Task PublishAsync(IPartitionedEventByGuid data, string topic, CancellationToken cancellationToken = default)
+    private readonly IPartitionBus _partitionBus;
+
+    public PartitionPublisherStraightToTheRabbit(IPartitionBus partitionBus)
     {
-        throw new System.NotImplementedException();
+        _partitionBus = partitionBus;
+    }
+    public async Task PublishAsync(IPartitionedEventByGuid data, string topic, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (!Constants.TopicsAndPartitionsMapping.TryGetValue(topic, out int partitionsCount))
+        {
+            throw new ArgumentException("Topic that you provided, is not registered in this application");
+        }
+
+        int partitionId = CalculatePartitionId(data, partitionsCount);
+        string queueAddress = $"queue:{topic}-{partitionId}";
+
+        ISendEndpoint sendEndpoint = await _partitionBus.GetSendEndpoint(new Uri(queueAddress));
+        await sendEndpoint.Send(data, cancellationToken);
     }
 
-    public Task PublishAsync(IPartitionedEventByString data, string topic, CancellationToken cancellationToken = default)
+    private int CalculatePartitionId(IPartitionedEventByGuid data, int numberOfPartitions)
     {
-        throw new System.NotImplementedException();
+        using var sha256 = SHA256.Create();
+        byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(data.PartitionKey.ToString()));
+        
+        // Convert first 8 bytes of hash to a long
+        long hashLong = BitConverter.ToInt64(hashBytes, 0);
+
+        if (hashLong < 0) hashLong = -hashLong;
+    
+        return (int)(hashLong % numberOfPartitions);
+    }
+
+    private int CalculatePartitionId(IPartitionedEventByString data, int numberOfPartitions)
+    {
+        using var sha256 = SHA256.Create();
+        byte[] hashBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(data.PartitionKey));
+        
+        // Convert first 8 bytes of hash to a long
+        long hashLong = BitConverter.ToInt64(hashBytes, 0);
+
+        if (hashLong < 0) hashLong = -hashLong;
+    
+        return (int)(hashLong % numberOfPartitions);
+    }
+
+    public async Task PublishAsync(IPartitionedEventByString data, string topic, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (!Constants.TopicsAndPartitionsMapping.TryGetValue(topic, out int partitionsCount))
+        {
+            throw new ArgumentException("Topic that you provided, is not registered in this application");
+        }
+
+        int partitionId = CalculatePartitionId(data, partitionsCount);
+        string queueAddress = $"queue:{topic}-{partitionId}";
+
+        ISendEndpoint sendEndpoint = await _partitionBus.GetSendEndpoint(new Uri(queueAddress));
+        await sendEndpoint.Send(data, cancellationToken);
     }
 }

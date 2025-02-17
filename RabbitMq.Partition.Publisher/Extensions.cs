@@ -11,12 +11,15 @@ namespace RabbitMq.Partition.Publisher;
 
 public static class Extensions
 {
-    public static IServiceCollection AddRabbitPartitioner(this IServiceCollection services,
-        Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator, PartitionPublisherSettings> configure)
+    public static IServiceCollection AddRabbitPartitioner(
+        this IServiceCollection services,
+        Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configureRabbit, 
+        Action<PartitionPublisherSettings> configurePartitionPublisher)
     {
         PartitionPublisherSettings settings = new PartitionPublisherSettings();
+        configurePartitionPublisher(settings);
 
-        ConfigureMassTransit(services, configure, settings);
+        ConfigureMassTransit(services, configureRabbit, settings);
         RegisterPartitionPublisher(services, settings);
         SaveTopicsMetadata(settings);
         
@@ -32,14 +35,16 @@ public static class Extensions
         }
     }
 
-    private static void ConfigureMassTransit(IServiceCollection services, Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator, PartitionPublisherSettings> configure,
+    private static void ConfigureMassTransit(
+        IServiceCollection services, 
+        Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configureRabbit,
         PartitionPublisherSettings settings)
     {
         services.AddMassTransit<IPartitionBus>(massTransitConfig =>
         {
             massTransitConfig.UsingRabbitMq((context, rabbitConfig) =>
             {
-                configure(context, rabbitConfig, settings); // after this method call, settings instance will be populated.
+                configureRabbit(context, rabbitConfig); // after this method call, settings instance will be populated.
 
                 SetupTopics(settings, rabbitConfig);
                 rabbitConfig.ConfigureEndpoints(context);
