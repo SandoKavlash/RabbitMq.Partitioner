@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,9 +25,9 @@ public class TestHostedService : BackgroundService
             IPartitionPublisher publisher = scope.ServiceProvider.GetRequiredService<IPartitionPublisher>();
             for (int i = 0; i < 100; i++)
             {
-                await publisher.PublishStringEventAsync(new TestEvent()
+                await publisher.PublishGuidEventAsync(new TestEventGuid()
                 {
-                    Message = "Sandrikela" + i
+                    Message = Guid.NewGuid()
                 }, stoppingToken);
                 await Task.Delay(100);
             }
@@ -40,4 +41,10 @@ public class TestEvent : IPartitionedEventByString
     public string Message { get; set; }
 
     public string PartitionKey => Message;
+}
+public class TestEventGuid : IPartitionedEventByGuid
+{
+    public Guid Message { get; set; }
+
+    public Guid PartitionKey => Message;
 }

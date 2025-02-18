@@ -23,6 +23,11 @@ Host
                 TopicName = "Test",
                 PartitionsCount = 3,
             });
+            partitionPublisherSettings.Topics.Add(new Topic<TestEventGuid>()
+            {
+                TopicName = "TestEventGuid",
+                PartitionsCount = 3,
+            });
         });
         services.AddHostedService<TestHostedService>();
     })
