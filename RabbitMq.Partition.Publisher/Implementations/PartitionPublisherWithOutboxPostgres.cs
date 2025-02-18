@@ -11,7 +11,8 @@ internal class PartitionPublisherWithOutboxPostgres : IPartitionPublisher
         throw new System.NotImplementedException();
     }
 
-    public Task PublishAsync<TMessage>(TMessage data, string topic, CancellationToken cancellationToken = default) where TMessage : IPartitionedEventByString
+    public Task PublishAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default) 
+        where TMessage : class, IPartitionedEventByString
     {
         throw new System.NotImplementedException();
     }

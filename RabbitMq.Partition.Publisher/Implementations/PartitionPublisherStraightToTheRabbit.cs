@@ -4,8 +4,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MassTransit;
-using MassTransit.DependencyInjection;
 using RabbitMq.Partition.Publisher.Abstractions;
+using RabbitMq.Partition.Publisher.Models;
 
 namespace RabbitMq.Partition.Publisher.Implementations;
 
@@ -59,10 +59,13 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
         return (int)(hashLong % numberOfPartitions);
     }
 
-    public async Task PublishAsync<TMessage>(TMessage data, string topic, CancellationToken cancellationToken = default)
-        where TMessage : IPartitionedEventByString
+    public async Task PublishAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+        where TMessage : class, IPartitionedEventByString
     {
         cancellationToken.ThrowIfCancellationRequested();
+
+        string? topic = Topic<TMessage>.TopicNameCache;
+        if (topic == null) throw new ArgumentException($"Event type: {typeof(TMessage)} is not configured");
 
         if (!Constants.TopicsAndPartitionsMapping.TryGetValue(topic, out int partitionsCount))
         {

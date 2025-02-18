@@ -7,13 +7,13 @@ namespace RabbitMq.Partition.Publisher.Models;
 
 public abstract class Topic
 {
-    public required string TopicName { get; set; }
+    public abstract required string TopicName { get; set; }
 
     public required int PartitionsCount { get; set; }
 
     internal Type MessageType { get; private set; }
 
-    internal abstract Action<IRabbitMqBusFactoryConfigurator, Topic> SetUpTopicDelegate { get; }
+    internal abstract Action<IRabbitMqBusFactoryConfigurator, Topic, Action<IRabbitMqBusFactoryConfigurator>> SetUpTopicDelegate { get; }
 
     internal Topic(Type messageType)
     {
@@ -23,8 +23,18 @@ public abstract class Topic
 public class Topic<TEvent> : Topic
     where TEvent : class
 {
+    internal static string? TopicNameCache = null;
+
+    public override required string? TopicName
+    {
+        get => Topic<TEvent>.TopicNameCache;
+        set => Topic<TEvent>.TopicNameCache = value;
+    }
+
     public Topic() : base(typeof(TEvent)) { }
-    internal override Action<IRabbitMqBusFactoryConfigurator, Topic> SetUpTopicDelegate => (rabbitConfig, topic) =>
+
+    internal override Action<IRabbitMqBusFactoryConfigurator, Topic, Action<IRabbitMqBusFactoryConfigurator>> SetUpTopicDelegate => 
+        (rabbitConfig, topic, rabbitConfigurator) =>
     {
         rabbitConfig.DeployPublishTopology = true; // Deploy topology on startup
 
@@ -37,14 +47,24 @@ public class Topic<TEvent> : Topic
             publishConfig.ExchangeType = ExchangeType.Direct;
             //=================
         });
+        var queueSetupBus = Bus.Factory.CreateUsingRabbitMq(queueSetupRabbitConfig =>
+        {
+            rabbitConfigurator(queueSetupRabbitConfig);
+            ConfigureQueues(topic, queueSetupRabbitConfig);
+        });
 
+        // Starts and stops immediately. it prevents consumers which are not necessary 
+        queueSetupBus.Start();
+        queueSetupBus.Stop();
+    };
+
+    private static void ConfigureQueues(Topic topic, IRabbitMqBusFactoryConfigurator queueSetupRabbitConfig)
+    {
         for (int i = 0; i < topic.PartitionsCount; i++)
         {
             string partitionName = $"{topic.TopicName}-{i}";
-            rabbitConfig.ReceiveEndpoint(partitionName, configureEndpoint =>
+            queueSetupRabbitConfig.ReceiveEndpoint(partitionName, configureEndpoint =>
             {
-                configureEndpoint.ConfigureConsumeTopology = false; // Prevents MassTransit from configuring a consumer
-
                 // Queue configs:
                 configureEndpoint.Durable = true;
                 configureEndpoint.Exclusive = false;
@@ -62,5 +82,5 @@ public class Topic<TEvent> : Topic
                 });
             });
         }
-    };
+    }
 }

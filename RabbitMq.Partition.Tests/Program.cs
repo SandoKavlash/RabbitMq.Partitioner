@@ -9,7 +9,7 @@ Host
     .CreateDefaultBuilder()
     .ConfigureServices(services =>
     {
-        services.AddRabbitPartitioner((context, rabbitConfig) =>
+        services.AddRabbitPartitioner(rabbitConfig =>
         {
             rabbitConfig.Host("localhost", 5672, "/", (hostConfig) =>
             {
@@ -24,7 +24,7 @@ Host
                 PartitionsCount = 3,
             });
         });
-        //services.AddHostedService<TestHostedService>();
+        services.AddHostedService<TestHostedService>();
     })
     .Build()
     .Run();

@@ -22,10 +22,14 @@ public class TestHostedService : BackgroundService
         {
             using var scope = _scopeFactory.CreateScope();
             IPartitionPublisher publisher = scope.ServiceProvider.GetRequiredService<IPartitionPublisher>();
-            await publisher.PublishAsync(new TestEvent()
+            for (int i = 0; i < 100; i++)
             {
-                Message = "Sandrikela"
-            }, "Test", stoppingToken);
+                await publisher.PublishAsync(new TestEvent()
+                {
+                    Message = "Sandrikela" + i
+                }, stoppingToken);
+                await Task.Delay(100);
+            }
             await Task.Delay(1000, stoppingToken);
         }
     }

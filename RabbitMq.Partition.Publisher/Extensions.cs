@@ -14,7 +14,7 @@ public static class Extensions
 {
     public static IServiceCollection AddRabbitPartitioner(
         this IServiceCollection services,
-        Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configureRabbit, 
+        Action<IRabbitMqBusFactoryConfigurator> configureRabbit, 
         Action<PartitionPublisherSettings> configurePartitionPublisher)
     {
         PartitionPublisherSettings settings = new PartitionPublisherSettings();
@@ -38,32 +38,38 @@ public static class Extensions
 
     private static void ConfigureMassTransit(
         IServiceCollection services, 
-        Action<IBusRegistrationContext, IRabbitMqBusFactoryConfigurator> configureRabbit,
+        Action<IRabbitMqBusFactoryConfigurator> configureRabbit,
         PartitionPublisherSettings settings)
     {
         services.AddMassTransit<IPartitionBus>(massTransitConfig =>
         {
             massTransitConfig.UsingRabbitMq((context, rabbitConfig) =>
             {
-                configureRabbit(context, rabbitConfig); // after this method call, settings instance will be populated.
+                configureRabbit(rabbitConfig); // after this method call, settings instance will be populated.
 
-                SetupTopics(settings, rabbitConfig);
+                SetupTopics(settings, rabbitConfig, configureRabbit);
                 rabbitConfig.ConfigureEndpoints(context);
             });
         });
     }
 
-    private static void SetupTopics(PartitionPublisherSettings settings, IRabbitMqBusFactoryConfigurator rabbitConfig)
+    private static void SetupTopics(
+        PartitionPublisherSettings settings, 
+        IRabbitMqBusFactoryConfigurator rabbitConfig,
+        Action<IRabbitMqBusFactoryConfigurator> configureRabbit)
     {
         foreach (Topic topic in settings.Topics)
         {
-            SetupTopic(rabbitConfig, topic);
+            SetupTopic(rabbitConfig, topic, configureRabbit);
         }
     }
 
-    private static void SetupTopic(IRabbitMqBusFactoryConfigurator rabbitConfig, Topic topic)
+    private static void SetupTopic(
+        IRabbitMqBusFactoryConfigurator rabbitConfig, 
+        Topic topic,
+        Action<IRabbitMqBusFactoryConfigurator> configureRabbit)
     {
-        topic.SetUpTopicDelegate(rabbitConfig, topic);
+        topic.SetUpTopicDelegate(rabbitConfig, topic, configureRabbit);
     }
 
     private static void RegisterPartitionPublisher(IServiceCollection services, PartitionPublisherSettings settings)

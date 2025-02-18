@@ -7,6 +7,6 @@ public interface IPartitionPublisher
 {
     Task PublishAsync(IPartitionedEventByGuid data, string topic, CancellationToken cancellationToken = default);
 
-    Task PublishAsync<TMessage>(TMessage data, string topic, CancellationToken cancellationToken = default)
-        where TMessage : IPartitionedEventByString;
+    Task PublishAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+        where TMessage : class, IPartitionedEventByString;
 }
