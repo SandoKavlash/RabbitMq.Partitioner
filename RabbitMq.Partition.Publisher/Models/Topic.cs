@@ -1,5 +1,6 @@
 using System;
 using MassTransit;
+using MassTransit.Middleware.Outbox;
 using RabbitMQ.Client;
 
 namespace RabbitMq.Partition.Publisher.Models;
@@ -27,23 +28,39 @@ public class Topic<TEvent> : Topic
     {
         rabbitConfig.DeployPublishTopology = true; // Deploy topology on startup
 
+        rabbitConfig.Message<TEvent>(topologyConfig => topologyConfig.SetEntityName(topic.TopicName));
         rabbitConfig.Publish<TEvent>(publishConfig =>
         {
+            // Exchange configs:
             publishConfig.Durable = true;
+            publishConfig.AutoDelete = false;
             publishConfig.ExchangeType = ExchangeType.Direct;
-            for (int i = 0; i < topic.PartitionsCount; i++)
-            {
-                string partitionName = $"{topic.TopicName}-{i}";
-    
-                publishConfig.BindQueue(TypeCache<TEvent>.ShortName, partitionName, bindConfig =>
-                {
-                    bindConfig.RoutingKey = partitionName; // Set the routing key if needed
-                    bindConfig.Durable = true;
-                    bindConfig.Exclusive = false;
-                    bindConfig.AutoDelete = false;
-                    bindConfig.SingleActiveConsumer = true;
-                });
-            }
+            //=================
         });
+
+        for (int i = 0; i < topic.PartitionsCount; i++)
+        {
+            string partitionName = $"{topic.TopicName}-{i}";
+            rabbitConfig.ReceiveEndpoint(partitionName, configureEndpoint =>
+            {
+                configureEndpoint.ConfigureConsumeTopology = false; // Prevents MassTransit from configuring a consumer
+
+                // Queue configs:
+                configureEndpoint.Durable = true;
+                configureEndpoint.Exclusive = false;
+                configureEndpoint.AutoDelete = false;
+                configureEndpoint.SingleActiveConsumer = true;
+                //===============
+                configureEndpoint.Bind(topic.TopicName, bindingConfig =>
+                {
+                    // Exchange configs:
+                    bindingConfig.RoutingKey = partitionName;
+                    bindingConfig.Durable = true;
+                    bindingConfig.AutoDelete = false;
+                    bindingConfig.ExchangeType = ExchangeType.Direct;
+                    //==================
+                });
+            });
+        }
     };
 }
