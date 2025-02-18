@@ -63,24 +63,7 @@ public static class Extensions
 
     private static void SetupTopic(IRabbitMqBusFactoryConfigurator rabbitConfig, Topic topic)
     {
-        rabbitConfig.Message(x => x.SetEntityName("custom-exchange-name"));// TODO: correct this one
-        rabbitConfig.Publish(topic.MessageType, publishConfig =>
-        {
-            publishConfig.Durable = true;
-            publishConfig.ExchangeType = ExchangeType.Direct;
-            for (int i = 0; i < topic.PartitionsCount; i++)
-            {
-                string partition = $"{topic.TopicName}-{i}";
-                publishConfig.BindQueue(topic.MessageType.FullName!, partition, bindConfig =>
-                {
-                    bindConfig.RoutingKey = partition; // Set the routing key if needed
-                    bindConfig.Durable = true;
-                    bindConfig.Exclusive = false;
-                    bindConfig.AutoDelete = false;
-                    bindConfig.SingleActiveConsumer = true;
-                });
-            }
-        });
+        topic.SetUpTopicDelegate(rabbitConfig, topic);
     }
 
     private static void RegisterPartitionPublisher(IServiceCollection services, PartitionPublisherSettings settings)

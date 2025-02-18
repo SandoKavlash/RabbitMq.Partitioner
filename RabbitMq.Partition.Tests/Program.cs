@@ -11,18 +11,17 @@ Host
     {
         services.AddRabbitPartitioner((context, rabbitConfig) =>
         {
-            rabbitConfig.Host("localhost", 5672, "PartitionTesting6", (hostConfig) =>
+            rabbitConfig.Host("localhost", 5672, "PartitionTesting8", (hostConfig) =>
             {
                 hostConfig.Username("root");
                 hostConfig.Password("root");
             });
         }, partitionPublisherSettings =>
         {
-            partitionPublisherSettings.Topics.Add(new Topic()
+            partitionPublisherSettings.Topics.Add(new Topic<TestEvent>()
             {
                 TopicName = "Test",
                 PartitionsCount = 15,
-                MessageType = typeof(TestEvent)
             });
         });
         services.AddHostedService<TestHostedService>();
