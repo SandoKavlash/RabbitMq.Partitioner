@@ -63,22 +63,23 @@ public static class Extensions
 
     private static void SetupTopic(IRabbitMqBusFactoryConfigurator rabbitConfig, Topic topic)
     {
-        for (int i = 0; i < topic.PartitionsCount; i++)
+        rabbitConfig.Publish(topic.MessageType, publishConfig =>
         {
-            rabbitConfig.ReceiveEndpoint($"{topic.TopicName}-{i}", endpointConfig =>
+            publishConfig.Durable = true;
+            publishConfig.ExchangeType = ExchangeType.Direct;
+            for (int i = 0; i < topic.PartitionsCount; i++)
             {
-                endpointConfig.Durable = true;
-                endpointConfig.Exclusive = false;
-                endpointConfig.AutoDelete = false;
-                endpointConfig.SingleActiveConsumer = true;
-
-                endpointConfig.Bind($"{topic.TopicName}-{i}", bindConfig =>
+                string partition = $"{topic.TopicName}-{i}";
+                publishConfig.BindQueue(topic.MessageType.FullName!, partition, bindConfig =>
                 {
-                    bindConfig.ExchangeType = ExchangeType.Fanout;
+                    bindConfig.RoutingKey = partition; // Set the routing key if needed
                     bindConfig.Durable = true;
+                    bindConfig.Exclusive = false;
+                    bindConfig.AutoDelete = false;
+                    bindConfig.SingleActiveConsumer = true;
                 });
-            });
-        }
+            }
+        });
     }
 
     private static void RegisterPartitionPublisher(IServiceCollection services, PartitionPublisherSettings settings)

@@ -59,7 +59,8 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
         return (int)(hashLong % numberOfPartitions);
     }
 
-    public async Task PublishAsync(IPartitionedEventByString data, string topic, CancellationToken cancellationToken = default)
+    public async Task PublishAsync<TMessage>(TMessage data, string topic, CancellationToken cancellationToken = default)
+        where TMessage : IPartitionedEventByString
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -69,9 +70,11 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
         }
 
         int partitionId = CalculatePartitionId(data, partitionsCount);
-        string queueAddress = $"queue:{topic}-{partitionId}";
 
-        ISendEndpoint sendEndpoint = await _partitionBus.GetSendEndpoint(new Uri(queueAddress));
-        await sendEndpoint.Send(data, cancellationToken);
+        await _partitionBus.Publish(data, context =>
+        {
+            context.Durable = true;
+            context.SetRoutingKey($"{topic}-{partitionId}");
+        },cancellationToken);
     }
 }
