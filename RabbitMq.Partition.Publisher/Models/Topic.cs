@@ -27,8 +27,6 @@ public class Topic<TEvent> : Topic
     {
         rabbitConfig.DeployPublishTopology = true; // Deploy topology on startup
 
-        rabbitConfig.Message<TEvent>(x => x.SetEntityName(topic.TopicName));
-
         rabbitConfig.Publish<TEvent>(publishConfig =>
         {
             publishConfig.Durable = true;
@@ -37,7 +35,7 @@ public class Topic<TEvent> : Topic
             {
                 string partitionName = $"{topic.TopicName}-{i}";
     
-                publishConfig.BindQueue(topic.TopicName, partitionName, bindConfig =>
+                publishConfig.BindQueue(TypeCache<TEvent>.ShortName, partitionName, bindConfig =>
                 {
                     bindConfig.RoutingKey = partitionName; // Set the routing key if needed
                     bindConfig.Durable = true;

@@ -21,7 +21,7 @@ Host
             partitionPublisherSettings.Topics.Add(new Topic<TestEvent>()
             {
                 TopicName = "Test",
-                PartitionsCount = 15,
+                PartitionsCount = 3,
             });
         });
         //services.AddHostedService<TestHostedService>();
