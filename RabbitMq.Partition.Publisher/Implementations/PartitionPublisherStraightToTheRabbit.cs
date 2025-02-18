@@ -17,9 +17,13 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
     {
         _partitionBus = partitionBus;
     }
-    public async Task PublishAsync(IPartitionedEventByGuid data, string topic, CancellationToken cancellationToken = default)
+    public async Task PublishGuidEventAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+        where TMessage : class, IPartitionedEventByGuid
     {
         cancellationToken.ThrowIfCancellationRequested();
+
+        string? topic = Topic<TMessage>.TopicNameCache;
+        if (topic == null) throw new ArgumentException($"Event type: {typeof(TMessage)} is not configured");
 
         if (!Constants.TopicsAndPartitionsMapping.TryGetValue(topic, out int partitionsCount))
         {
@@ -27,10 +31,12 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
         }
 
         int partitionId = CalculatePartitionId(data, partitionsCount);
-        string queueAddress = $"queue:{topic}-{partitionId}";
 
-        ISendEndpoint sendEndpoint = await _partitionBus.GetSendEndpoint(new Uri(queueAddress));
-        await sendEndpoint.Send(data, cancellationToken);
+        await _partitionBus.Publish(data, context =>
+        {
+            context.Durable = true;
+            context.SetRoutingKey($"{topic}-{partitionId}");
+        },cancellationToken);
     }
 
     private int CalculatePartitionId(IPartitionedEventByGuid data, int numberOfPartitions)
@@ -59,7 +65,7 @@ internal class PartitionPublisherStraightToTheRabbit : IPartitionPublisher
         return (int)(hashLong % numberOfPartitions);
     }
 
-    public async Task PublishAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+    public async Task PublishStringEventAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
         where TMessage : class, IPartitionedEventByString
     {
         cancellationToken.ThrowIfCancellationRequested();

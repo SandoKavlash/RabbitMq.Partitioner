@@ -5,8 +5,9 @@ namespace RabbitMq.Partition.Publisher.Abstractions;
 
 public interface IPartitionPublisher
 {
-    Task PublishAsync(IPartitionedEventByGuid data, string topic, CancellationToken cancellationToken = default);
+    Task PublishGuidEventAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+        where TMessage : class, IPartitionedEventByGuid;
 
-    Task PublishAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
+    Task PublishStringEventAsync<TMessage>(TMessage data, CancellationToken cancellationToken = default)
         where TMessage : class, IPartitionedEventByString;
 }

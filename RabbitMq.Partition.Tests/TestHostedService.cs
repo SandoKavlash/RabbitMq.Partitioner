@@ -24,7 +24,7 @@ public class TestHostedService : BackgroundService
             IPartitionPublisher publisher = scope.ServiceProvider.GetRequiredService<IPartitionPublisher>();
             for (int i = 0; i < 100; i++)
             {
-                await publisher.PublishAsync(new TestEvent()
+                await publisher.PublishStringEventAsync(new TestEvent()
                 {
                     Message = "Sandrikela" + i
                 }, stoppingToken);
