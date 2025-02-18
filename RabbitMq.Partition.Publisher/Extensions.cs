@@ -63,6 +63,7 @@ public static class Extensions
 
     private static void SetupTopic(IRabbitMqBusFactoryConfigurator rabbitConfig, Topic topic)
     {
+        rabbitConfig.Message(x => x.SetEntityName("custom-exchange-name"));// TODO: correct this one
         rabbitConfig.Publish(topic.MessageType, publishConfig =>
         {
             publishConfig.Durable = true;
