@@ -19,23 +19,27 @@ public abstract class Topic
         MessageType = messageType;
     }
 }
-public class Topic<T> : Topic
-    where T : class
+public class Topic<TEvent> : Topic
+    where TEvent : class
 {
-    public Topic() : base(typeof(T)) { }
+    public Topic() : base(typeof(TEvent)) { }
     internal override Action<IRabbitMqBusFactoryConfigurator, Topic> SetUpTopicDelegate => (rabbitConfig, topic) =>
     {
-        rabbitConfig.Message<T>(x => x.SetEntityName(topic.TopicName));
-        rabbitConfig.Publish(topic.MessageType, publishConfig =>
+        rabbitConfig.DeployPublishTopology = true; // Deploy topology on startup
+
+        rabbitConfig.Message<TEvent>(x => x.SetEntityName(topic.TopicName));
+
+        rabbitConfig.Publish<TEvent>(publishConfig =>
         {
             publishConfig.Durable = true;
             publishConfig.ExchangeType = ExchangeType.Direct;
             for (int i = 0; i < topic.PartitionsCount; i++)
             {
-                string partition = $"{topic.TopicName}-{i}";
-                publishConfig.BindQueue(topic.MessageType.FullName!, partition, bindConfig =>
+                string partitionName = $"{topic.TopicName}-{i}";
+    
+                publishConfig.BindQueue(topic.TopicName, partitionName, bindConfig =>
                 {
-                    bindConfig.RoutingKey = partition; // Set the routing key if needed
+                    bindConfig.RoutingKey = partitionName; // Set the routing key if needed
                     bindConfig.Durable = true;
                     bindConfig.Exclusive = false;
                     bindConfig.AutoDelete = false;
