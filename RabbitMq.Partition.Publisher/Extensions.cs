@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Extensions.DependencyInjection;
 using MassTransit;
+using RabbitMQ.Client;
 using RabbitMq.Partition.Publisher.Abstractions;
 using RabbitMq.Partition.Publisher.Enums;
 using RabbitMq.Partition.Publisher.Implementations;
@@ -70,6 +71,12 @@ public static class Extensions
                 endpointConfig.Exclusive = false;
                 endpointConfig.AutoDelete = false;
                 endpointConfig.SingleActiveConsumer = true;
+
+                endpointConfig.Bind($"{topic.TopicName}-{i}", bindConfig =>
+                {
+                    bindConfig.ExchangeType = ExchangeType.Fanout;
+                    bindConfig.Durable = true;
+                });
             });
         }
     }
