@@ -1,3 +1,5 @@
+using System;
+
 namespace RabbitMq.Partitioner.Exceptions.Base;
 
 public class RabbitPartitionerException : Exception

@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using RabbitMq.Partitioner.Exceptions.Base;
 
 namespace RabbitMq.Partitioner.Models;

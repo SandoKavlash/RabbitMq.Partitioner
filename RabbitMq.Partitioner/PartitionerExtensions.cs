@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using EasyNetQ;
 using EasyNetQ.Topology;
 using Microsoft.AspNetCore.Builder;

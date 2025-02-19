@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using RabbitMq.Partitioner;
-using RabbitMq.Partitioner.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddOpenApi("docs");
+
 builder.Services.AddPartitioner((config) =>
 {
     config
@@ -17,6 +20,13 @@ builder.Services.AddPartitioner((config) =>
 
 var app = builder.Build();
 
+app.MapOpenApi();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/openapi/docs.json", "LionBitcoin.Payments.Service");
+});
+
+app.MapControllers();
 
 app.UsePartitioner();
 app.Run();

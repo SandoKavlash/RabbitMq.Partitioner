@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RabbitMq.Partitioner.Models;
 
 namespace RabbitMq.Partitioner;
