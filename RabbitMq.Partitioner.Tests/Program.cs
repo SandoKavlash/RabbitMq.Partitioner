@@ -13,7 +13,7 @@ builder.Services.AddPartitioner((config) =>
         .ConfigureTopic(topicConfig => topicConfig
             .WithName("GameEvents")
             .WithPartitionsCount(12));
-}, "host=localhost;virtualHost=2;username=root;password=root;port=5672");
+}, "host=localhost;virtualHost=2;username=root;password=root;port=5672;publisherConfirms=true");
 
 var app = builder.Build();
 

@@ -2,6 +2,8 @@ using EasyNetQ;
 using EasyNetQ.Topology;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMq.Partitioner.Abstractions;
+using RabbitMq.Partitioner.Implementations;
 using RabbitMq.Partitioner.Models;
 
 namespace RabbitMq.Partitioner;
@@ -20,6 +22,7 @@ public static class PartitionerExtensions
             .AddEasyNetQ(rabbitConnectionString)
             .UseSystemTextJson();
         services.AddSingleton<RabbitPartitionerConfiguration>(config);
+        services.AddSingleton<IPartitionPublisher, PartitionPublisherDirectlyInRabbit>();
 
         return services;
     }
@@ -54,6 +57,7 @@ public static class PartitionerExtensions
             .AsDurable(true)
             .AsAutoDelete(false)
             .WithType(ExchangeType.Direct));
+        topic.CreatedExchange = topicExchange;
 
         ConfigurePartitions(topic, topicExchange, advancedBus);
     }

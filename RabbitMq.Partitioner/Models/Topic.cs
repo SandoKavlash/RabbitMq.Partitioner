@@ -1,3 +1,4 @@
+using EasyNetQ.Topology;
 using RabbitMq.Partitioner.Exceptions.Base;
 
 namespace RabbitMq.Partitioner.Models;
@@ -8,8 +9,14 @@ public class Topic
 
     internal int PartitionsCount { get; set; }
 
+    internal Exchange? CreatedExchange { get; set; } = null;
+
     public Topic WithName(string name)
     {
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new RabbitPartitionerException("Topic name cannot be null or empty");
+        }
         Name = name;
         return this;
     }
