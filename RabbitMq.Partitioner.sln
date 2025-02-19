@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Consumer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partition.Consumer.PostgreSql", "RabbitMq.Partition.Consumer.PostgreSql\RabbitMq.Partition.Consumer.PostgreSql.csproj", "{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner", "RabbitMq.Partitioner\RabbitMq.Partitioner.csproj", "{7D2E3252-A3D2-4AE5-A281-D4FC3B133715}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMq.Partitioner.Tests", "RabbitMq.Partitioner.Tests\RabbitMq.Partitioner.Tests.csproj", "{78D6AB68-1068-4E4F-BAA2-5AF91C01B8C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +34,13 @@ Global
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1FAF97B-8AAF-4D17-AE8D-B1F6A288E175}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D2E3252-A3D2-4AE5-A281-D4FC3B133715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D2E3252-A3D2-4AE5-A281-D4FC3B133715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D2E3252-A3D2-4AE5-A281-D4FC3B133715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D2E3252-A3D2-4AE5-A281-D4FC3B133715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78D6AB68-1068-4E4F-BAA2-5AF91C01B8C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78D6AB68-1068-4E4F-BAA2-5AF91C01B8C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78D6AB68-1068-4E4F-BAA2-5AF91C01B8C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78D6AB68-1068-4E4F-BAA2-5AF91C01B8C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
